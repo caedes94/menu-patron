@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXODE MENU PATRON — Démo Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DEMO SHOWCASE — EXODE MENU PATRON
+   Présentation automatique premium pour vente Tebex
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --s0: #050912;
+  --s1: #090f1f;
+  --s2: #0d1629;
+  --s3: #111e36;
+  --s4: #172444;
+  --blue: #3b9eff;
+  --blue-hi: #6fb8ff;
+  --blue-lo: rgba(59,158,255,.12);
+  --blue-bd: rgba(59,158,255,.25);
+  --blue-glow: 0 0 24px rgba(59,158,255,.2);
+  --teal: #2dd4bf;
+  --teal-lo: rgba(45,212,191,.1);
+  --teal-bd: rgba(45,212,191,.28);
+  --red: #f56565;
+  --red-lo: rgba(245,101,101,.1);
+  --red-bd: rgba(245,101,101,.28);
+  --amber: #f6ad55;
+  --amber-lo: rgba(246,173,85,.1);
+  --amber-bd: rgba(246,173,85,.28);
+  --t1: #f0f4ff;
+  --t2: #7b92b8;
+  --t3: #3a4f72;
+  --bd: rgba(255,255,255,.07);
+  --bd2: rgba(255,255,255,.12);
+  --r: 10px;
+  --r-sm: 6px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --f-ui: 'Plus Jakarta Sans', sans-serif;
+  --f-mono: 'Syne Mono', monospace;
+  --pw: 1360px;
+  --ph: 800px;
+  --sw: 238px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--s0);
+  font-family: var(--f-ui);
+  color: var(--t1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* BACKGROUND PATTERN */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(59,158,255,.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(45,212,191,.02) 0%, transparent 40%),
+    linear-gradient(180deg, var(--s0) 0%, var(--s1) 100%);
+  z-index: -1;
+}
+
+/* INTRO SCREEN */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--s0) 0%, var(--s1) 50%, var(--s2) 100%);
+  z-index: 9999;
+  animation: introFade 1s ease 3.5s forwards;
+}
+
+@keyframes introFade {
+  to { opacity: 0; pointer-events: none; }
+}
+
+.intro-logo {
+  width: 120px;
+  height: 120px;
+  background: var(--blue-lo);
+  border: 2px solid var(--blue-bd);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  box-shadow: var(--blue-glow), 0 20px 60px rgba(0,0,0,.5);
+  animation: logoPulse 2s ease infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); box-shadow: var(--blue-glow), 0 20px 60px rgba(0,0,0,.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(59,158,255,.4), 0 20px 80px rgba(0,0,0,.6); }
+}
+
+.intro-logo svg {
+  width: 60px;
+  height: 60px;
+  stroke: var(--blue-hi);
+  stroke-width: 1.5;
+}
+
+.intro-title {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--t1);
+  margin-bottom: 12px;
+  animation: titleSlide 1s ease 0.3s backwards;
+}
+
+@keyframes titleSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.intro-subtitle {
+  font-size: 18px;
+  color: var(--t2);
+  font-weight: 500;
+  margin-bottom: 50px;
+  animation: titleSlide 1s ease 0.5s backwards;
+}
+
+.intro-features {
+  display: flex;
+  gap: 40px;
+  animation: titleSlide 1s ease 0.8s backwards;
+}
+
+.intro-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro-feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--s2);
+  border: 1px solid var(--bd2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-feature-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--blue);
+}
+
+.intro-feature-label {
+  font-size: 13px;
+  color: var(--t2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* MAIN DEMO CONTAINER */
+#demo-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: containerFadeIn 1s ease 4s forwards;
+}
+
+@keyframes containerFadeIn {
+  to { opacity: 1; }
+}
+
+/* SHELL */
+.shell {
+  display: flex;
+  width: var(--pw);
+  height: var(--ph);
+  max-width: 96vw;
+  max-height: 96vh;
+  background: var(--s1);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--bd2);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04),
+    0 48px 96px rgba(0,0,0,.9),
+    0 0 80px rgba(59,158,255,.06);
+  animation: shellIn .6s cubic-bezier(.22,1,.36,1) 4.5s backwards;
+  position: relative;
+}
+
+@keyframes shellIn {
+  from { opacity: 0; transform: scale(.94) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ANNOTATION OVERLAY */
+.annotation {
+  position: absolute;
+  background: rgba(59,158,255,.95);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--r);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(59,158,255,.4), 0 0 0 1px rgba(255,255,255,.1);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.annotation::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: var(--blue);
+  opacity: 0.6;
+}
+
+.annotation.top::before { bottom: 100%; left: 20px; }
+.annotation.bottom::before { top: 100%; left: 20px; }
+.annotation.left::before { right: 100%; top: 50%; width: 40px; height: 2px; transform: translateY(-50%); }
+.annotation.right::before { left: 100%; top: 50%; width: 40px; height: 2px; transform: translateY(-50%); }
+
+.annotation.show {
+  animation: annotationIn 0.5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes annotationIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.annotation.hide {
+  animation: annotationOut 0.4s ease forwards;
+}
+
+@keyframes annotationOut {
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sw);
+  flex-shrink: 0;
+  background: var(--s0);
+  border-right: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), transparent);
+}
+
+.sb-top { padding: 0 0 8px; }
+
+.sb-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 20px 20px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.sb-logo-mark {
+  width: 36px; height: 36px;
+  background: var(--blue-lo);
+  border: 1px solid var(--blue-bd);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--blue-glow);
+  flex-shrink: 0;
+}
+
+.sb-logo-mark svg { width: 17px; height: 17px; stroke: var(--blue-hi); }
+
+.sb-logo-name {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--t1);
+  line-height: 1.1;
+}
+
+.sb-logo-sub {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--t3);
+  letter-spacing: .5px;
+  margin-top: 2px;
+}
+
+.org-card {
+  margin: 14px 14px 4px;
+  padding: 13px 16px;
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.org-icon { font-size: 20px; line-height: 1; }
+
+.org-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1.2;
+}
+
+.org-grade {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--blue-hi);
+  margin-top: 2px;
+}
+
+.sb-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 10px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: var(--r);
+  color: var(--t2);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: all .3s;
+  position: relative;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.nav-icon {
+  width: 20px; height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-icon svg { width: 18px; height: 18px; transition: stroke .3s; }
+
+.nav-label { flex: 1; }
+
+.nav-count {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background: var(--s3);
+  color: var(--t2);
+  border: 1px solid var(--bd);
+  min-width: 24px;
+  text-align: center;
+}
+
+.nav-count.green { 
+  background: var(--teal-lo); 
+  color: var(--teal); 
+  border-color: var(--teal-bd); 
+}
+
+.nav-item.active {
+  background: var(--blue-lo);
+  color: var(--blue-hi);
+  border-color: var(--blue-bd);
+}
+
+.nav-item.active .nav-count {
+  background: var(--blue-lo);
+  color: var(--blue-hi);
+  border-color: var(--blue-bd);
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 25%; bottom: 25%;
+  width: 2px;
+  background: var(--blue);
+  border-radius: 0 2px 2px 0;
+}
+
+.sb-footer {
+  padding: 12px 14px 16px;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 10px 16px;
+}
+
+.staff-kpi { flex: 1; text-align: center; }
+
+.kpi-val {
+  font-family: var(--f-mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--t1);
+  line-height: 1;
+}
+
+.kpi-val.online { color: var(--teal); }
+
+.kpi-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--t2);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+.staff-sep {
+  width: 1px;
+  height: 32px;
+  background: var(--bd2);
+  margin: 0 4px;
+}
+
+/* MAIN CONTENT */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-glow {
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(59,158,255,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.view {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  animation: viewSlide 0.5s ease;
+}
+
+.view.active { display: flex; }
+
+@keyframes viewSlide {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.view-head {
+  padding: 30px 36px 24px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-head h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--t1);
+  margin-bottom: 4px;
+  letter-spacing: -.5px;
+}
+
+.view-head p {
+  font-size: 14px;
+  color: var(--t2);
+}
+
+.view-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* TABLE */
+.table-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 30px;
+}
+
+.ptable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ptable thead tr {
+  border-bottom: 1px solid var(--bd2);
+}
+
+.ptable th {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--t2);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: left;
+  padding: 0 0 14px 0;
+}
+
+.ptable tbody tr {
+  border-bottom: 1px solid var(--bd);
+  transition: background .15s;
+}
+
+.ptable tbody tr:hover {
+  background: rgba(59,158,255,.03);
+}
+
+.ptable td {
+  padding: 16px 12px 16px 0;
+  font-size: 14px;
+  color: var(--t1);
+}
+
+.emp-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.emp-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--s3);
+  border: 1px solid var(--bd2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.emp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.emp-name {
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.emp-id {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--t3);
+}
+
+.badge {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge.online {
+  background: var(--teal-lo);
+  color: var(--teal);
+  border: 1px solid var(--teal-bd);
+}
+
+.badge.offline {
+  background: var(--s3);
+  color: var(--t3);
+  border: 1px solid var(--bd);
+}
+
+.salary-val {
+  font-family: var(--f-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue-hi);
+}
+
+.btn-group {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all .15s;
+  background: transparent;
+}
+
+.btn-sm.blue {
+  color: var(--blue);
+  border-color: var(--blue-bd);
+}
+
+.btn-sm.blue:hover {
+  background: var(--blue-lo);
+}
+
+.btn-sm.red {
+  color: var(--red);
+  border-color: var(--red-bd);
+}
+
+.btn-sm.red:hover {
+  background: var(--red-lo);
+}
+
+/* FINANCE KPI */
+.fin-kpi-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 24px 30px;
+}
+
+.fin-kpi-card {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.fin-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), transparent);
+}
+
+.fk-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--t2);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.fk-big-val {
+  font-family: var(--f-mono);
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--t1);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.fk-currency {
+  font-size: 28px;
+  color: var(--t2);
+  margin-right: 4px;
+}
+
+.fin-kpi-sm {
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+}
+
+.fk-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--blue-lo);
+  border: 1px solid var(--blue-bd);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fk-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--blue);
+}
+
+.fk-icon.fk-icon-teal {
+  background: var(--teal-lo);
+  border-color: var(--teal-bd);
+}
+
+.fk-icon.fk-icon-teal svg {
+  stroke: var(--teal);
+}
+
+.fk-icon.fk-icon-amber {
+  background: var(--amber-lo);
+  border-color: var(--amber-bd);
+}
+
+.fk-icon.fk-icon-amber svg {
+  stroke: var(--amber);
+}
+
+.fk-sm-content {
+  flex: 1;
+}
+
+.fk-sm-val {
+  font-family: var(--f-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--t1);
+  margin-top: 2px;
+}
+
+/* CONTROL BAR */
+.demo-controls {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--s2);
+  border: 1px solid var(--bd2);
+  border-radius: 60px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 12px 48px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+  z-index: 200;
+  opacity: 0;
+  animation: controlsIn 0.6s ease 5s forwards;
+}
+
+@keyframes controlsIn {
+  to { opacity: 1; }
+}
+
+.ctrl-btn {
+  width: 42px;
+  height: 42px;
+  background: var(--s3);
+  border: 1px solid var(--bd);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.ctrl-btn:hover {
+  background: var(--blue-lo);
+  border-color: var(--blue-bd);
+}
+
+.ctrl-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--t2);
+}
+
+.ctrl-btn:hover svg {
+  stroke: var(--blue);
+}
+
+.ctrl-btn.active {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.ctrl-btn.active svg {
+  stroke: #fff;
+}
+
+.ctrl-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--s3);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ctrl-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+
+.ctrl-step {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--t2);
+  min-width: 80px;
+  text-align: center;
+}
+
+/* BRAND WATERMARK */
+.brand-watermark {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: brandIn 0.8s ease 5.5s forwards;
+  z-index: 150;
+}
+
+@keyframes brandIn {
+  to { opacity: 1; }
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  background: var(--blue-lo);
+  border: 1px solid var(--blue-bd);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--blue-glow);
+}
+
+.brand-logo svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--blue-hi);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: 2px;
+}
+
+.brand-sub {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--t3);
+  letter-spacing: 1px;
+}
+
+/* PULSING HIGHLIGHT */
+.highlight-pulse {
+  position: absolute;
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  animation: pulseHighlight 2s ease infinite;
+}
+
+@keyframes pulseHighlight {
+  0%, 100% { 
+    opacity: 0; 
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(59,158,255,0);
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(59,158,255,.4);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO SCREEN -->
+<div class="intro-screen">
+  <div class="intro-logo">
+    <svg viewBox="0 0 20 20" fill="none">
+      <path d="M10 2L3 6v8l7 4 7-4V6L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="intro-title">MENU PATRON</div>
+  <div class="intro-subtitle">Panel de gestion ESX Premium</div>
+  <div class="intro-features">
+    <div class="intro-feature">
+      <div class="intro-feature-icon">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M15 19v-1.5A3.5 3.5 0 0011.5 14h-7A3.5 3.5 0 001 17.5V19"/>
+          <circle cx="8" cy="8" r="3.5"/>
+          <path d="M21 19v-1.5a3.5 3.5 0 00-2.6-3.38"/>
+          <path d="M14.5 4.63a3.5 3.5 0 010 6.74"/>
+        </svg>
+      </div>
+      <div class="intro-feature-label">Employés</div>
+    </div>
+    <div class="intro-feature">
+      <div class="intro-feature-icon">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="1" y="5" width="20" height="14" rx="2"/>
+          <line x1="1" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <div class="intro-feature-label">Salaires</div>
+    </div>
+    <div class="intro-feature">
+      <div class="intro-feature-icon">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+          <polyline points="21 7 12.5 15 8 10.5 1 17"/>
+          <polyline points="16 7 21 7 21 12"/>
+        </svg>
+      </div>
+      <div class="intro-feature-label">Finances</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN DEMO -->
+<div id="demo-container">
+  <div class="shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-top">
+        <div class="sb-logo">
+          <div class="sb-logo-mark">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M10 2L3 6v8l7 4 7-4V6L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sb-logo-text">
+            <span class="sb-logo-name">PATRON</span>
+            <span class="sb-logo-sub">Panel de gestion</span>
+          </div>
+        </div>
+
+        <div class="org-card">
+          <div class="org-icon">🏢</div>
+          <div class="org-info">
+            <div class="org-name">Exode Motors</div>
+            <div class="org-grade">boss</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sb-nav">
+        <a class="nav-item active" data-tab="employees">
+          <div class="nav-icon">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M15 19v-1.5A3.5 3.5 0 0011.5 14h-7A3.5 3.5 0 001 17.5V19"/>
+              <circle cx="8" cy="8" r="3.5"/>
+              <path d="M21 19v-1.5a3.5 3.5 0 00-2.6-3.38"/>
+              <path d="M14.5 4.63a3.5 3.5 0 010 6.74"/>
+            </svg>
+          </div>
+          <span class="nav-label">Employés</span>
+          <span class="nav-count">12</span>
+        </a>
+        <a class="nav-item" data-tab="recruit">
+          <div class="nav-icon">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M15 19v-1.5A3.5 3.5 0 0011.5 14h-7A3.5 3.5 0 001 17.5V19"/>
+              <circle cx="8" cy="8" r="3.5"/>
+              <line x1="18" y1="7" x2="18" y2="13"/>
+              <line x1="21" y1="10" x2="15" y2="10"/>
+            </svg>
+          </div>
+          <span class="nav-label">Recrutement</span>
+          <span class="nav-count green">3</span>
+        </a>
+        <a class="nav-item" data-tab="salary">
+          <div class="nav-icon">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="1" y="5" width="20" height="14" rx="2"/>
+              <line x1="1" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <span class="nav-label">Salaires</span>
+        </a>
+        <a class="nav-item" data-tab="finance">
+          <div class="nav-icon">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <polyline points="21 7 12.5 15 8 10.5 1 17"/>
+              <polyline points="16 7 21 7 21 12"/>
+            </svg>
+          </div>
+          <span class="nav-label">Finances</span>
+        </a>
+        <a class="nav-item" data-tab="logs">
+          <div class="nav-icon">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M13 2H6a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/>
+              <polyline points="13 2 13 8 19 8"/>
+              <line x1="14" y1="13" x2="8" y2="13"/>
+              <line x1="14" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <span class="nav-label">Historique</span>
+        </a>
+      </nav>
+
+      <div class="sb-footer">
+        <div class="staff-row">
+          <div class="staff-kpi">
+            <div class="kpi-val">12</div>
+            <div class="kpi-lbl">Effectif</div>
+          </div>
+          <div class="staff-sep"></div>
+          <div class="staff-kpi">
+            <div class="kpi-val online">8</div>
+            <div class="kpi-lbl">En ligne</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="main-glow"></div>
+
+      <!-- EMPLOYEES VIEW -->
+      <section class="view active" id="view-employees">
+        <header class="view-head">
+          <div>
+            <h1>Gestion des employés</h1>
+            <p>Personnel, grades et sanctions</p>
+          </div>
+        </header>
+        <div class="view-body">
+          <div class="table-scroll">
+            <table class="ptable">
+              <thead>
+                <tr>
+                  <th>Employé</th>
+                  <th>Grade</th>
+                  <th>Présence</th>
+                  <th>Salaire</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="employeesTable">
+                <!-- Filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINANCE VIEW -->
+      <section class="view" id="view-finance">
+        <header class="view-head">
+          <div>
+            <h1>Finances</h1>
+            <p>Trésorerie & opérations</p>
+          </div>
+        </header>
+        <div class="view-body">
+          <div class="fin-kpi-row">
+            <div class="fin-kpi-card">
+              <div class="fk-label">SOLDE SOCIÉTÉ</div>
+              <div class="fk-big-val">
+                <span class="fk-currency">$</span><span id="balanceValue">487,250</span>
+              </div>
+            </div>
+            <div class="fin-kpi-card fin-kpi-sm">
+              <div class="fk-icon fk-icon-teal">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <line x1="10" y1="1" x2="10" y2="19"/>
+                  <polyline points="5 6 10 1 15 6"/>
+                </svg>
+              </div>
+              <div class="fk-sm-content">
+                <div class="fk-label">MASSE SALARIALE</div>
+                <div class="fk-sm-val"><span class="fk-currency">$</span>18,500</div>
+              </div>
+            </div>
+            <div class="fin-kpi-card fin-kpi-sm">
+              <div class="fk-icon fk-icon-amber">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <circle cx="10" cy="10" r="8"/>
+                  <path d="M10 6v4l3 2"/>
+                </svg>
+              </div>
+              <div class="fk-sm-content">
+                <div class="fk-label">PAIES EFFECTUÉES</div>
+                <div class="fk-sm-val">24</div>
+              </div>
+            </div>
+            <div class="fin-kpi-card fin-kpi-sm">
+              <div class="fk-icon">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <polyline points="3 14 7 9 11 12 17 5"/>
+                </svg>
+              </div>
+              <div class="fk-sm-content">
+                <div class="fk-label">DERNIÈRE TX</div>
+                <div class="fk-sm-val">Il y a 12min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- BRAND WATERMARK -->
+<div class="brand-watermark">
+  <div class="brand-logo">
+    <svg viewBox="0 0 20 20" fill="none">
+      <path d="M10 2L3 6v8l7 4 7-4V6L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="brand-text">
+    <div class="brand-name">EXODE CITY RP</div>
+    <div class="brand-sub">TEBEX.IO/EXODE</div>
+  </div>
+</div>
+
+<!-- DEMO CONTROLS -->
+<div class="demo-controls">
+  <button class="ctrl-btn" id="playBtn">
+    <svg id="playIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="5 3 19 12 5 21 5 3"/>
+    </svg>
+    <svg id="pauseIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+      <line x1="8" y1="4" x2="8" y2="20"/>
+      <line x1="16" y1="4" x2="16" y2="20"/>
+    </svg>
+  </button>
+  <div class="ctrl-progress">
+    <div class="ctrl-progress-bar" id="progressBar"></div>
+  </div>
+  <div class="ctrl-step" id="stepIndicator">Étape 1/5</div>
+  <button class="ctrl-btn" id="restartBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="1 4 1 10 7 10"/>
+      <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DEMO AUTOMATION SCRIPT
+// ═══════════════════════════════════════════════════════════
+
+const employees = [
+  { name: 'Alexandre Martin', id: 'steam:110000...', grade: 'Directeur', status: 'online', salary: 1850 },
+  { name: 'Sophie Dubois', id: 'steam:110000...', grade: 'Responsable', status: 'online', salary: 1450 },
+  { name: 'Lucas Bernard', id: 'steam:110000...', grade: 'Technicien', status: 'online', salary: 950 },
+  { name: 'Emma Laurent', id: 'steam:110000...', grade: 'Stagiaire', status: 'offline', salary: 450 },
+  { name: 'Thomas Petit', id: 'steam:110000...', grade: 'Technicien', status: 'online', salary: 1050 },
+  { name: 'Chloé Robert', id: 'steam:110000...', grade: 'Vendeur', status: 'online', salary: 850 },
+  { name: 'Maxime Richard', id: 'steam:110000...', grade: 'Technicien', status: 'online', salary: 980 },
+  { name: 'Léa Moreau', id: 'steam:110000...', grade: 'Stagiaire', status: 'offline', salary: 450 },
+  { name: 'Hugo Simon', id: 'steam:110000...', grade: 'Vendeur', status: 'online', salary: 920 },
+  { name: 'Manon Laurent', id: 'steam:110000...', grade: 'Responsable', status: 'offline', salary: 1380 },
+  { name: 'Antoine Leroy', id: 'steam:110000...', grade: 'Technicien', status: 'online', salary: 1120 },
+  { name: 'Camille Garnier', id: 'steam:110000...', grade: 'Stagiaire', status: 'offline', salary: 450 },
+];
+
+function renderEmployees() {
+  const tbody = document.getElementById('employeesTable');
+  tbody.innerHTML = '';
+  
+  employees.forEach((emp, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div class="emp-cell">
+          <div class="emp-avatar">${emp.name.charAt(0)}</div>
+          <div class="emp-info">
+            <div class="emp-name">${emp.name}</div>
+            <div class="emp-id">${emp.id}</div>
+          </div>
+        </div>
+      </td>
+      <td>${emp.grade}</td>
+      <td><span class="badge ${emp.status}">${emp.status === 'online' ? 'En ligne' : 'Hors ligne'}</span></td>
+      <td><span class="salary-val">$${emp.salary.toLocaleString()}</span></td>
+      <td>
+        <div class="btn-group">
+          <button class="btn-sm blue">Grade</button>
+          <button class="btn-sm blue">Prime</button>
+          <button class="btn-sm red">Licencier</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+renderEmployees();
+
+// DEMO SEQUENCE
+const demoSteps = [
+  {
+    name: 'Interface',
+    duration: 4000,
+    action: () => {
+      showAnnotation('Navigation intuitive', 60, 150, 'right');
+      showAnnotation('Design premium', 300, 50, 'bottom');
+    }
+  },
+  {
+    name: 'Employés',
+    duration: 5000,
+    action: () => {
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      navItems[0].classList.add('active');
+      
+      const views = document.querySelectorAll('.view');
+      views.forEach(v => v.classList.remove('active'));
+      document.getElementById('view-employees').classList.add('active');
+      
+      setTimeout(() => {
+        showAnnotation('Gestion complète du personnel', 700, 200, 'left');
+        showAnnotation('Actions en temps réel', 900, 450, 'left');
+      }, 500);
+    }
+  },
+  {
+    name: 'Recrutement',
+    duration: 4000,
+    action: () => {
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      navItems[1].classList.add('active');
+      
+      showAnnotation('Scan automatique de joueurs', 600, 200, 'left');
+    }
+  },
+  {
+    name: 'Finances',
+    duration: 6000,
+    action: () => {
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      navItems[3].classList.add('active');
+      
+      const views = document.querySelectorAll('.view');
+      views.forEach(v => v.classList.remove('active'));
+      document.getElementById('view-finance').classList.add('active');
+      
+      setTimeout(() => {
+        showAnnotation('Tableau de bord financier', 700, 150, 'left');
+        showAnnotation('Statistiques détaillées', 700, 350, 'left');
+        animateBalance();
+      }, 500);
+    }
+  },
+  {
+    name: 'Système complet',
+    duration: 4000,
+    action: () => {
+      showAnnotation('✓ ESX Legacy compatible', 400, 400, 'top');
+      showAnnotation('✓ ox_lib & ox_target', 700, 400, 'top');
+      showAnnotation('✓ Optimisé 0.00ms', 1000, 400, 'top');
+    }
+  }
+];
+
+let currentStep = 0;
+let isPlaying = false;
+let stepTimeout = null;
+let progressInterval = null;
+
+function showAnnotation(text, x, y, position) {
+  const annotation = document.createElement('div');
+  annotation.className = `annotation ${position}`;
+  annotation.textContent = text;
+  annotation.style.left = x + 'px';
+  annotation.style.top = y + 'px';
+  
+  document.body.appendChild(annotation);
+  
+  setTimeout(() => annotation.classList.add('show'), 50);
+  
+  setTimeout(() => {
+    annotation.classList.remove('show');
+    annotation.classList.add('hide');
+    setTimeout(() => annotation.remove(), 400);
+  }, 3000);
+}
+
+function animateBalance() {
+  const balanceEl = document.getElementById('balanceValue');
+  let current = 0;
+  const target = 487250;
+  const duration = 2000;
+  const steps = 60;
+  const increment = target / steps;
+  const stepDuration = duration / steps;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    balanceEl.textContent = Math.floor(current).toLocaleString();
+  }, stepDuration);
+}
+
+function updateProgress(duration) {
+  const progressBar = document.getElementById('progressBar');
+  let elapsed = 0;
+  const interval = 50;
+  
+  if (progressInterval) clearInterval(progressInterval);
+  
+  progressInterval = setInterval(() => {
+    elapsed += interval;
+    const percent = (elapsed / duration) * 100;
+    progressBar.style.width = Math.min(percent, 100) + '%';
+    
+    if (elapsed >= duration) {
+      clearInterval(progressInterval);
+      progressBar.style.width = '100%';
+    }
+  }, interval);
+}
+
+function runStep(index) {
+  if (index >= demoSteps.length) {
+    currentStep = 0;
+    isPlaying = false;
+    updatePlayButton();
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('stepIndicator').textContent = 'Terminé';
+    return;
+  }
+  
+  currentStep = index;
+  const step = demoSteps[index];
+  
+  document.getElementById('stepIndicator').textContent = `Étape ${index + 1}/${demoSteps.length}`;
+  document.getElementById('progressBar').style.width = '0%';
+  
+  step.action();
+  updateProgress(step.duration);
+  
+  stepTimeout = setTimeout(() => {
+    if (isPlaying) runStep(index + 1);
+  }, step.duration);
+}
+
+function updatePlayButton() {
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  const playBtn = document.getElementById('playBtn');
+  
+  if (isPlaying) {
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = 'block';
+    playBtn.classList.add('active');
+  } else {
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+    playBtn.classList.remove('active');
+  }
+}
+
+document.getElementById('playBtn').addEventListener('click', () => {
+  isPlaying = !isPlaying;
+  updatePlayButton();
+  
+  if (isPlaying) {
+    runStep(currentStep);
+  } else {
+    if (stepTimeout) clearTimeout(stepTimeout);
+    if (progressInterval) clearInterval(progressInterval);
+  }
+});
+
+document.getElementById('restartBtn').addEventListener('click', () => {
+  if (stepTimeout) clearTimeout(stepTimeout);
+  if (progressInterval) clearInterval(progressInterval);
+  
+  currentStep = 0;
+  isPlaying = true;
+  updatePlayButton();
+  
+  document.getElementById('progressBar').style.width = '0%';
+  
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => item.classList.remove('active'));
+  navItems[0].classList.add('active');
+  
+  const views = document.querySelectorAll('.view');
+  views.forEach(v => v.classList.remove('active'));
+  document.getElementById('view-employees').classList.add('active');
+  
+  runStep(0);
+});
+
+// AUTO-START après intro
+setTimeout(() => {
+  isPlaying = true;
+  updatePlayButton();
+  runStep(0);
+}, 6000);
+</script>
+
+</body>
+</html>
